@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Scene1: View {
     @State var cont = 0
+    @State private var showingSheet = false
     
     var body: some View {
         GeometryReader{ reader in
@@ -51,6 +52,19 @@ struct Scene1: View {
                 
                 if cont < 3 {
                     VStack {
+                        HStack {
+                            Spacer()
+                            Button {
+                                showingSheet.toggle()
+                            } label: {
+                                Image(systemName: "book.fill")
+                                    .font(.largeTitle)
+                                    .padding()
+                            }
+                            .sheet(isPresented: $showingSheet) {
+                                SheetView()
+                            }
+                        }
                         Spacer()
                         HStack(alignment: .bottom, spacing: 16) {
                             if(cont > 0 && cont < 4) {
@@ -90,3 +104,18 @@ struct Scene1: View {
 }
 
 
+struct SheetView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        Text("""
+               Mari is a dreamy girl and loves to use her creativity to revolutionize the world around her, her memory is her great ally. But she is going through difficult times, she has been working a lot, she feels tired and quite unmotivated.
+               """)
+        .onTapGesture(perform: {
+            dismiss()
+        })
+        .font(.title)
+        .padding()
+    }
+    
+}

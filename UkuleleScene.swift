@@ -7,9 +7,12 @@
 
 import SwiftUI
 import AVFoundation
+import UIKit
 
 var ukuleleSong: AVAudioPlayer!
 struct UkuleleScene: View {
+    let cfURL = Bundle.main.url(forResource: "Poppins-Regular", withExtension: "ttf")! as CFURL
+    
     @ObservedObject var soundManager = SoundManager()
     
     var body: some View {
@@ -31,8 +34,7 @@ struct UkuleleScene: View {
             } else {
                 VStack{
                     Text("Touch on the screen to play the music!")
-//                        .font(.largeTitle)
-//                        .font(Fonte)
+                        .font(.largeTitle)
                         .padding(.top, 128)
                     Spacer()
                 }

@@ -10,14 +10,14 @@ import UIKit
 
 struct Scene6: View {
     @State var cont = 0
-    @State private var position: CGPoint = CGPoint(x: 200, y: 1210)
-    @State private var positionB: CGPoint = CGPoint(x: 85, y: 1100)
-    @State private var positionC: CGPoint = CGPoint(x: 190, y: 920)
-    @State private var positionD: CGPoint = CGPoint(x: 110, y: 400)
-    @State private var positionE: CGPoint = CGPoint(x: 225, y: 500)
+    @State private var position: CGPoint = CGPoint(x: -110, y: 555)
+    @State private var positionB: CGPoint = CGPoint(x: 480, y: 1120)
+    @State private var positionC: CGPoint = CGPoint(x: 385, y: 965)
+    @State private var positionD: CGPoint = CGPoint(x: 115, y: 400)
+    @State private var positionE: CGPoint = CGPoint(x: 100, y: 515)
     
     func isNearTo(_ position: CGPoint, goal: CGPoint) -> Bool {
-        return position.distance(to: goal) < 370
+        return position.distance(to: goal) < 350
     }
     
     var drag: some Gesture {
@@ -25,10 +25,9 @@ struct Scene6: View {
             .onChanged { value in
                 print(value.location)
                 self.position = value.location
-                
             }
             .onEnded { value in
-                if (isNearTo(self.position, goal: .init(x: 470, y: 630))) {
+                if (isNearTo(self.position, goal: .init(x: 140, y: -44))) {
                     print("dentro")
                     cont += 1
                 }
@@ -38,82 +37,104 @@ struct Scene6: View {
     var dragB: some Gesture {
         DragGesture()
             .onChanged { value in
+                print(value.location)
                 self.positionB = value.location
-                cont += 1
+            }
+            .onEnded { value in
+                if (isNearTo(self.positionB, goal: .init(x: 510, y: 675))) {
+                    print("dentro")
+                    cont += 1
+                }
             }
     }
     
     var dragC: some Gesture {
         DragGesture()
             .onChanged { value in
+                print(value.location)
                 self.positionC = value.location
-                cont += 1
+            }
+            .onEnded { value in
+                if (isNearTo(self.positionC, goal: .init(x: -20, y: 645))) {
+                    print("dentro")
+                    cont += 1
+                }
             }
     }
     
     var dragD: some Gesture {
         DragGesture()
             .onChanged { value in
+                print(value.location)
                 self.positionD = value.location
-                cont += 1
+            }
+            .onEnded { value in
+                if (isNearTo(self.positionD, goal: .init(x: 500, y: 0))) {
+                    print("dentro")
+                    cont += 1
+                }
             }
     }
     
     var dragE: some Gesture {
         DragGesture()
             .onChanged { value in
+                print(value.location)
                 self.positionE = value.location
-                cont += 1
+
+            }
+            .onEnded { value in
+                if (isNearTo(self.positionE, goal: .init(x: -180, y: 0))) {
+                    print("dentro")
+                    cont += 1
+                }
             }
     }
     
     @State private var isDragging = false
     var body: some View {
-        VStack{
-            Spacer()
-            HStack{
+        ZStack {
+            VStack{
                 Spacer()
-                Image("flowerTape")
-                    .position(positionB)
-                    .gesture(dragB)
-                Image("borbTape")
-                    .position(positionC)
-                    .gesture(dragC)
-                
+                HStack{
+                    Spacer()
+                    Image("flowerTape")
+                        .position(positionB)
+                        .gesture(dragB)
+                    Image("borbTape")
+                        .position(positionC)
+                        .gesture(dragC)
+                }
+                HStack{
+                    Image("pinkTape")
+                        .position(positionD)
+                        .gesture(dragD)
+                    Image("textTape")
+                        .position(position)
+                        .gesture(drag)
+                    Image("paperTape")
+                        .zIndex(-1)
+                        .position(positionE)
+                        .gesture(dragE)
+                }.zIndex(-1)
+                    .padding(.bottom, 10)
             }
-            HStack{
-                Image("pinkTape")
-                    .position(positionD)
-                    .gesture(dragD)
-                Image("textTape")
-                    .position(position)
-                    .gesture(drag)
-                Image("paperTape")
-                    .position(positionE)
-                    .gesture(dragE)
-            }.padding(.bottom, 10)
-            
-            
-            
+            if cont > 3 {
+                VStack{
+                    Spacer()
+                    Text("Wow, it's amazing!")
+                        .fontWeight(.medium)
+                        .font(.largeTitle)
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: Scene7(), label:{
+                            Image("arrow4").padding()
+                        })
+                    }
+                }
+            }
         }.navigationBarHidden(true)
             .background(Image("collageArea"))
-        
-        if cont > 5 {
-            VStack {
-                Spacer()
-                Text("Congratulations!")
-                HStack {
-                    Spacer()
-                    NavigationLink(destination: Scene7(), label:{
-                        Text("Finish")
-                    })
-                    
-                }
-                
-            }
-            
-            
-        }
         
     }
 }
