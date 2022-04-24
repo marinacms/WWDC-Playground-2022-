@@ -9,25 +9,28 @@ import SwiftUI
 import UIKit
 
 struct Scene6: View {
-    @State private var position: CGPoint = CGPoint(x: 125, y: 1010)
-    @State private var positionB: CGPoint = CGPoint(x: 125, y: 1010)
-    @State private var positionC: CGPoint = CGPoint(x: 125, y: 1010)
-    @State private var positionD: CGPoint = CGPoint(x: 125, y: 900)
-    @State private var positionE: CGPoint = CGPoint(x: 125, y: 0)
-    @State private var positionF: CGPoint = CGPoint(x: 125, y: 0)
+    @State var cont = 0
+    @State private var position: CGPoint = CGPoint(x: 200, y: 1210)
+    @State private var positionB: CGPoint = CGPoint(x: 85, y: 1100)
+    @State private var positionC: CGPoint = CGPoint(x: 190, y: 920)
+    @State private var positionD: CGPoint = CGPoint(x: 110, y: 400)
+    @State private var positionE: CGPoint = CGPoint(x: 225, y: 500)
     
     func isNearTo(_ position: CGPoint, goal: CGPoint) -> Bool {
-        return position.distance(to: goal) < 250
+        return position.distance(to: goal) < 370
     }
     
     var drag: some Gesture {
         DragGesture()
             .onChanged { value in
+                print(value.location)
                 self.position = value.location
-                print("LOCATION \(value.location)")
                 
-                if(isNearTo(self.position, goal: .init(x: 500, y: 475))) {
-                    print("figurinha dentro do caderno")
+            }
+            .onEnded { value in
+                if (isNearTo(self.position, goal: .init(x: 470, y: 630))) {
+                    print("dentro")
+                    cont += 1
                 }
             }
     }
@@ -36,6 +39,7 @@ struct Scene6: View {
         DragGesture()
             .onChanged { value in
                 self.positionB = value.location
+                cont += 1
             }
     }
     
@@ -43,6 +47,7 @@ struct Scene6: View {
         DragGesture()
             .onChanged { value in
                 self.positionC = value.location
+                cont += 1
             }
     }
     
@@ -50,6 +55,7 @@ struct Scene6: View {
         DragGesture()
             .onChanged { value in
                 self.positionD = value.location
+                cont += 1
             }
     }
     
@@ -57,13 +63,7 @@ struct Scene6: View {
         DragGesture()
             .onChanged { value in
                 self.positionE = value.location
-            }
-    }
-    
-    var dragF: some Gesture {
-        DragGesture()
-            .onChanged { value in
-                self.positionF = value.location
+                cont += 1
             }
     }
     
@@ -73,37 +73,47 @@ struct Scene6: View {
             Spacer()
             HStack{
                 Spacer()
-                Image("areTape")
-                    .position(position)
-                    .gesture(drag)
-                Image("heartTape")
+                Image("flowerTape")
                     .position(positionB)
                     .gesture(dragB)
-                Image("powerTape")
+                Image("borbTape")
                     .position(positionC)
                     .gesture(dragC)
                 
             }
             HStack{
-                Image("memoriesTape")
+                Image("pinkTape")
                     .position(positionD)
                     .gesture(dragD)
-                Image("tape")
+                Image("textTape")
+                    .position(position)
+                    .gesture(drag)
+                Image("paperTape")
                     .position(positionE)
                     .gesture(dragE)
             }.padding(.bottom, 10)
             
-           
+            
             
         }.navigationBarHidden(true)
-        .background(Image("collageArea"))
-        NavigationLink(destination: Scene7(), label:{
-            Image("arrow4")
-             
-    })
+            .background(Image("collageArea"))
+        
+        if cont > 5 {
+            VStack {
+                Spacer()
+                Text("Congratulations!")
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: Scene7(), label:{
+                        Text("Finish")
+                    })
+                    
+                }
+                
+            }
+            
+            
+        }
         
     }
-
-
 }
-

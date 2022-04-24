@@ -197,7 +197,6 @@ struct Scene3: View {
             if cont == 3 {
                 VStack {
                     Spacer()
-                    Text("Congratulations!")
                     HStack {
                         Spacer()
                         NavigationLink(destination: UkuleleScene(), label:{
