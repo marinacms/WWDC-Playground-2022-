@@ -6,21 +6,31 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct Scene5: View {
+    var soundManager = SoundManager()
+    
     var body: some View {
-        ZStack{
+        ZStack {
             Gif("animationBeach")
-    //        soundManager.MusicPlayer(sound: "Good", type: "mp3")
-            
-            NavigationLink(destination: Scene6(), label:{
-                Image("arrow3")
-                    .position(x: 900, y: 1220)
-        })
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: Scene6(), label:{
+                        Image("arrow3")
+                    })
+                }
+            }
         }.navigationBarHidden(true)
-        
-        
-        }
+            .onAppear(perform: playMusicOnStart)
     }
+    
+    private func playMusicOnStart() {
+        soundManager.MusicPlayer(sound: "ambienteWwdc", type: "mp3")
+    }
+    
+}
 
 

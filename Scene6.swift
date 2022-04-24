@@ -9,10 +9,10 @@ import SwiftUI
 import UIKit
 
 struct Scene6: View {
-    @State private var position: CGPoint = CGPoint(x: 125, y: 0)
-    @State private var positionB: CGPoint = CGPoint(x: 125, y: 0)
-    @State private var positionC: CGPoint = CGPoint(x: 125, y: 0)
-    @State private var positionD: CGPoint = CGPoint(x: 125, y: 0)
+    @State private var position: CGPoint = CGPoint(x: 125, y: 1010)
+    @State private var positionB: CGPoint = CGPoint(x: 125, y: 1010)
+    @State private var positionC: CGPoint = CGPoint(x: 125, y: 1010)
+    @State private var positionD: CGPoint = CGPoint(x: 125, y: 900)
     @State private var positionE: CGPoint = CGPoint(x: 125, y: 0)
     @State private var positionF: CGPoint = CGPoint(x: 125, y: 0)
     
@@ -69,9 +69,10 @@ struct Scene6: View {
     
     @State private var isDragging = false
     var body: some View {
-        VStack(spacing: 32) {
+        VStack{
             Spacer()
             HStack{
+                Spacer()
                 Image("areTape")
                     .position(position)
                     .gesture(drag)
@@ -90,15 +91,16 @@ struct Scene6: View {
                 Image("tape")
                     .position(positionE)
                     .gesture(dragE)
-            }.padding(.bottom, 32)
+            }.padding(.bottom, 10)
             
-            NavigationLink(destination: Scene7(), label:{
-                Image("arrow4")
-                    .position(x: 900, y: 1220)
-        })
+           
             
         }.navigationBarHidden(true)
         .background(Image("collageArea"))
+        NavigationLink(destination: Scene7(), label:{
+            Image("arrow4")
+             
+    })
         
     }
 

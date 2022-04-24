@@ -21,15 +21,13 @@ struct UkuleleScene: View {
                 }
             if soundManager.finishedPlaying {
                 VStack{
-                    Button(action: {
-                        print("Next Screen!")
-                    }
-                    ){
-                        Text("Get to next screen")
-                            .font(.largeTitle)
-                    }.padding(.top, 128)
                     Spacer()
-                }
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: Scene5(), label:{
+                            Image("arrow3")
+                        })
+                    }                }
             } else {
                 VStack{
                     Text("Touch on the screen to play the music!")
@@ -39,10 +37,6 @@ struct UkuleleScene: View {
                     Spacer()
                 }
             }
-            NavigationLink(destination: Scene5(), label:{
-                Image("arrow3")
-                    .position(x: 900, y: 1220)
-        })
                 
         }.navigationBarHidden(true)
     }

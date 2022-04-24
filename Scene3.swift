@@ -24,6 +24,7 @@ class Poladoid{
 //}
 
 struct Scene3: View {
+    @State var cont = 0
     var relaxingPolaroid = Poladoid(polaroid: Image("RelaxingPolaroid"),
                                     tapes: Image("relaxmyTape"))
     var polaroidUkulele = Poladoid(polaroid: Image("polaroidUkulele"),
@@ -51,30 +52,52 @@ struct Scene3: View {
     
     var simpleDrag: some Gesture {
         DragGesture()
-            .onEnded { value in
-                print("LOCATION \(value.location)")
-                if(isNearTo(self.location, goal: .init(x: -129, y: -117))) {
-                    self.location = .init(x: -129, y: -117)
-                }
-            }
             .onChanged { value in
                 self.location = value.location
+            }
+            .onEnded { value in
+                print("LOCATIONaaa \(value.location)")
+                if(isNearTo(self.location, goal: .init(x: 120, y: -117))) {
+                    self.location = .init(x: 120, y: -117)
+                    cont += 1
+                }
+                else if (isNearTo(self.location, goal: .init(x: 442, y: -114)) ||
+                         isNearTo(self.location, goal: .init(x: 766, y: -115))) {
+                    self.location = .init(x: 125, y: 45)
+                }
             }
     }
     
     var simpleDragB: some Gesture {
         DragGesture()
             .onChanged { value in
+                print("LOCATIONaaa \(value.location)")
+                self.locationB = value.location
+            }
+            .onEnded { value in
+                if(isNearTo(self.locationB, goal: .init(x: 459, y: -116)) ||
+                   isNearTo(self.locationB, goal: .init(x: 129, y: -121)) ||
+                   isNearTo(self.locationB, goal: .init(x: -194, y: -115)))  {
+                    self.locationB = .init(x: 125, y: 45)
+                }
             }
     }
     
     var simpleDragC: some Gesture {
         DragGesture()
             .onChanged { value in
-                print("LOCATION \(value.location)")
+                print("LOCATIONaaa \(value.location)")
                 self.locationC = value.location
+            }
+            .onEnded { value in
                 if(isNearTo(self.locationC, goal: .init(x: -184, y: -116))) {
                     self.locationC = .init(x: -184, y: -116)
+                    cont += 1
+                }
+                
+                else if (isNearTo(self.locationC, goal: .init(x: 142, y: -117)) ||
+                         isNearTo(self.locationC, goal: .init(x: -513, y: -113))) {
+                    self.locationC = .init(x: 125, y: 45)
                 }
             }
     }
@@ -82,12 +105,16 @@ struct Scene3: View {
     var simpleDragD: some Gesture {
         DragGesture()
             .onChanged { value in
+                print("LOCATIONaaa \(value.location)")
                 self.locationD = value.location
-                if(isNearTo(self.locationD, goal: .init(x: -184, y: -116)) || isNearTo(self.locationC, goal: .init(x: -184, y: -116)) ||
-                    isNearTo(self.locationE, goal: .init(x: 457, y: -248)){
-                    self.locationD = .init(x: -184, y: -116)
+            }
+            .onEnded { value in
+                if(isNearTo(self.locationD, goal: .init(x: 444, y: -247)) ||
+                   isNearTo(self.locationD, goal: .init(x: 771, y: -248)) ||
+                   isNearTo(self.locationD, goal: .init(x: 116, y: -248)))  {
+                    self.locationD = .init(x: 125, y: 0)
                 }
-                )}
+            }
     }
     
     var simpleDragE: some Gesture {
@@ -95,8 +122,15 @@ struct Scene3: View {
             .onChanged { value in
                 print("LOCATION \(value.location)")
                 self.locationE = value.location
-                if(isNearTo(self.locationE, goal: .init(x: 457, y: -248))) {
+            }
+            .onEnded { value in
+            if(isNearTo(self.locationE, goal: .init(x: 455, y: -248))) {
                     self.locationE = .init(x: 457, y: -248)
+                cont += 1
+                }
+                else if (isNearTo(self.locationE, goal: .init(x: 132, y: -246)) ||
+                         isNearTo(self.locationE, goal: .init(x: -198, y: -249))) {
+                    self.locationE = .init(x: 125, y: 0)
                 }
                 
             }
@@ -106,6 +140,13 @@ struct Scene3: View {
         DragGesture()
             .onChanged { value in
                 self.locationF = value.location
+            }
+            .onEnded { value in
+                if(isNearTo(self.locationF, goal: .init(x: 137, y: -250)) ||
+               isNearTo(self.locationF, goal: .init(x: -186, y: -244)) ||
+                   isNearTo(self.locationF, goal: .init(x: -510, y: -243)))  {
+                    self.locationF = .init(x: 125, y: 0)
+                }
             }
     }
     
@@ -153,13 +194,16 @@ struct Scene3: View {
             }.background(Image("backScene3"))
                 .navigationBarHidden(true)
             
-            VStack {
-                Spacer()
-                HStack {
+            if cont == 3 {
+                VStack {
                     Spacer()
-                    NavigationLink(destination: UkuleleScene(), label:{
-                        Image("arrow2")
-                    })
+                    Text("Congratulations!")
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: UkuleleScene(), label:{
+                            Image("arrow2")
+                        })
+                    }
                 }
             }
         }
