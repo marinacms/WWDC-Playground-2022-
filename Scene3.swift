@@ -20,7 +20,6 @@ class Poladoid{
 }
 
 struct Scene3: View {
-    @State private var showingSheet = false
     @State var cont = 0
     var relaxingPolaroid = Poladoid(polaroid: Image("RelaxingPolaroid"),
                                     tapes: Image("relaxmyTape"))
@@ -42,6 +41,87 @@ struct Scene3: View {
     @State private var locationD: CGPoint = CGPoint(x: 125, y: 0)
     @State private var locationE: CGPoint = CGPoint(x: 125, y: 0)
     @State private var locationF: CGPoint = CGPoint(x: 125, y: 0)
+    @State private var isDragging = false
+    @State private var showingSheet = false
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                HStack(spacing: 24) {
+                    relaxingPolaroid.polaroid
+                    polaroidUkulele.polaroid
+                        .rotationEffect(.degrees(0))
+                    polaroidCollage.polaroid
+                }.padding(.bottom, 50)
+                
+                HStack(spacing: 48) {
+                    relaxingPolaroid.tapes
+                        .position(location)
+                        .gesture(simpleDrag)
+                    
+                    fakes[2].tapes
+                        .position(locationB)
+                        .gesture(simpleDragB)
+                    
+                    polaroidUkulele.tapes
+                        .position(locationC)
+                        .gesture(simpleDragC)
+                        .rotationEffect(.degrees(0))
+                    
+                }.padding(.horizontal, 64)
+                    .frame(width: screenWidth, height: 125, alignment: .center)
+                
+                HStack(spacing: 48) {
+                    fakes[0].tapes
+                        .position(locationD)
+                        .gesture(simpleDragD)
+                    Image("collageTape")
+                        .position(locationE)
+                        .gesture(simpleDragE)
+                        .rotationEffect(.degrees(0))
+                    fakes[1].tapes
+                        .position(locationF)
+                        .gesture(simpleDragF)
+                }.padding(.horizontal, 64)
+                    .frame(width: screenWidth, height: 125, alignment: .center)
+            }.background(Image("backScene3"))
+                .navigationBarHidden(true)
+            
+            if cont > 2 {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: UkuleleScene(), label:{
+                            Image("arrow2")
+                        })
+                    }
+                }
+            } else {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            showingSheet.toggle()
+                        } label: {
+                            Image(systemName: "book.fill")
+                                .font(.largeTitle)
+                                .padding()
+                        }
+                        .sheet(isPresented: $showingSheet) {
+                            SheetView(text: """
+                                📷Mari likes to take pictures and keep them to always remember every moment . So, Mari opened her memory box and found a lot of photographs of good times she lived.
+                            
+                                But some of her pictures had lost their identification, let's help Mari to fix it? Relate each text to it's memory ❤️
+
+                            """)
+                        }
+                    }
+                    Spacer()
+                }
+            }
+        }
+    }
     
     func isNearTo(_ position: CGPoint, goal: CGPoint) -> Bool {
         return position.distance(to: goal) < 70
@@ -140,83 +220,6 @@ struct Scene3: View {
                     self.locationF = .init(x: 125, y: 0)
                 }
             }
-    }
-    
-    @State private var isDragging = false
-    var body: some View {
-        ZStack {
-            VStack {
-                HStack(spacing: 24) {
-                    relaxingPolaroid.polaroid
-                    polaroidUkulele.polaroid
-                        .rotationEffect(.degrees(0))
-                    polaroidCollage.polaroid
-                }.padding(.bottom, 50)
-                
-                HStack(spacing: 48) {
-                    relaxingPolaroid.tapes
-                        .position(location)
-                        .gesture(simpleDrag)
-                    
-                    fakes[2].tapes
-                        .position(locationB)
-                        .gesture(simpleDragB)
-                    
-                    polaroidUkulele.tapes
-                        .position(locationC)
-                        .gesture(simpleDragC)
-                        .rotationEffect(.degrees(0))
-                    
-                }.padding(.horizontal, 64)
-                    .frame(width: screenWidth, height: 125, alignment: .center)
-                
-                HStack(spacing: 48) {
-                    fakes[0].tapes
-                        .position(locationD)
-                        .gesture(simpleDragD)
-                    Image("collageTape")
-                        .position(locationE)
-                        .gesture(simpleDragE)
-                        .rotationEffect(.degrees(0))
-                    fakes[1].tapes
-                        .position(locationF)
-                        .gesture(simpleDragF)
-                }.padding(.horizontal, 64)
-                    .frame(width: screenWidth, height: 125, alignment: .center)
-            }.background(Image("backScene3"))
-                .navigationBarHidden(true)
-            
-            if cont > 2 {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        NavigationLink(destination: UkuleleScene(), label:{
-                            Image("arrow2")
-                        })
-                    }
-                }
-            } else {
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            showingSheet.toggle()
-                        } label: {
-                            Image(systemName: "book.fill")
-                                .font(.largeTitle)
-                                .padding()
-                        }
-                        .sheet(isPresented: $showingSheet) {
-                            SheetView(text: """
-                            Mudar texto
-                            """)
-                        }
-                    }
-                    Spacer()
-                }
-            }
-        }
     }
 }
 

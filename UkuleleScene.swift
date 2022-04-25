@@ -50,7 +50,10 @@ struct UkuleleScene: View {
                     }
                     .sheet(isPresented: $showingSheet) {
                         SheetView(text: """
-                        Mudar texto
+                            How about now we relive those moments with Mari and help her remember what she is capable of doing and also what she loves?
+                            She learned to play the ukulele recently, even though she thought she wouldn't be able to, but she insisted and she did. Let's hear her first song! 🎧
+
+                            💡NOTE: Tap anywhere on the screen to listen and don't forget to turn up the volume for a better experience.
                         """)
                     }
                 }

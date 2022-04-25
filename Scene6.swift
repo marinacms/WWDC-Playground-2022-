@@ -72,7 +72,9 @@ struct Scene6: View {
                         }
                         .sheet(isPresented: $showingSheet) {
                             SheetView(text: """
-                            Mudar texto
+                                Mari always takes the time to create collages and exercise her creativity even more ✨
+
+                                💡Note: drag the elements to the notebook and help her in this creative exercise!✨
                             """)
                         }
                     }

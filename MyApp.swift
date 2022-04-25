@@ -5,7 +5,7 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView{
-            Scene6()
+            Scene1()
             }
             .navigationViewStyle(StackNavigationViewStyle())
 //            Scene3()

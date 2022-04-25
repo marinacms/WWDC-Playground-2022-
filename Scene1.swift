@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Scene1: View {
     @State var cont = 0
-    @State private var showingSheet = false
+    @State private var showingSheet = true
     
     var body: some View {
         GeometryReader{ reader in
@@ -63,7 +63,9 @@ struct Scene1: View {
                             }
                             .sheet(isPresented: $showingSheet) {
                                 SheetView(text: """
-                                Mari is a dreamy girl and loves to use her creativity to revolutionize the world around her, her memory is her great ally. But she is going through difficult times, she has been working a lot, she feels tired and quite unmotivated.
+                                    Mari is a dreamy girl and loves to use her creativity to revolutionize the world around her, her memory is her great ally. But she is going through difficult times, she has been working a lot, she feels tired and quite unmotivated 🥺
+                                
+                                    💡NOTE: .Always read the story and instructions on the top right before the scene.
                                 """)
                             }
                         }
