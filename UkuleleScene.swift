@@ -35,7 +35,10 @@ struct UkuleleScene: View {
                     }                }
             } else {
                 VStack{
-                    Text("Touch on the screen to play the music!")
+                    Text("""
+                                        Touch on the screen to play the music!
+                        Wait until the end of the music to pass to another screen.
+                        """)
                         .font(.largeTitle)
                         .padding(.top, 128)
                     Spacer()
@@ -56,7 +59,7 @@ struct UkuleleScene: View {
                             How about now we relive those moments with Mari and help her remember what she is capable of doing and also what she loves?
                             She learned to play the ukulele recently, even though she thought she wouldn't be able to, but she insisted and she did. Let's hear her first song! 🎧
 
-                            💡NOTE: Tap anywhere on the screen to listen and don't forget to turn up the volume for a better experience.
+                            💡NOTE: Don't forget to turn up the volume for a better experience.
                         """)
                     }
                 }
