@@ -21,6 +21,9 @@ struct UkuleleScene: View {
                 .onTapGesture {
                     soundManager.MusicPlayer(sound: "Good", type: "mp3")
                 }
+                .onAppear(){
+                    showingSheet.toggle()
+                }
             if soundManager.finishedPlaying {
                 VStack{
                     Spacer()

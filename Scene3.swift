@@ -53,6 +53,9 @@ struct Scene3: View {
                         .rotationEffect(.degrees(0))
                     polaroidCollage.polaroid
                 }.padding(.bottom, 50)
+                    .onAppear(){
+                        showingSheet.toggle()
+                    }
                 
                 HStack(spacing: 48) {
                     relaxingPolaroid.tapes

@@ -20,6 +20,8 @@ struct Scene7: View {
                                 .padding(.leading, reader.size.width*0.57)
                                 .padding(.bottom, reader.size.height*0.46),
                             alignment: .bottomLeading)
+                }.onAppear(){
+                    showingSheet.toggle()
                 }
                 VStack {
                     HStack {

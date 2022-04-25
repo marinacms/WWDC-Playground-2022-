@@ -31,6 +31,8 @@ struct Scene6: View {
                     Image("borbTape")
                         .position(positionC)
                         .gesture(dragC)
+                }.onAppear(){
+                    showingSheet.toggle()
                 }
                 HStack{
                     Image("pinkTape")
@@ -74,7 +76,7 @@ struct Scene6: View {
                             SheetView(text: """
                                 Mari always takes the time to create collages and exercise her creativity even more ✨
 
-                                💡Note: drag the elements to the notebook and help her in this creative exercise!✨
+                                💡Note: drag the elements to the notebook and help her in this creative exercise!
                             """)
                         }
                     }

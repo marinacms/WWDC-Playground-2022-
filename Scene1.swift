@@ -65,7 +65,6 @@ struct Scene1: View {
                                 SheetView(text: """
                                     Mari is a dreamy girl and loves to use her creativity to revolutionize the world around her, her memory is her great ally. But she is going through difficult times, she has been working a lot, she feels tired and quite unmotivated 🥺
                                 
-                                    💡NOTE: .Always read the story and instructions on the top right before the scene.
                                 """)
                             }
                         }
