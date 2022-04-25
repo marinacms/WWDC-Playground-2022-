@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+
 class Poladoid{
     var polaroid: Image?
     var tapes: Image?
@@ -18,12 +19,8 @@ class Poladoid{
     }
 }
 
-//func drop(polaroid: Image, tapes: Image){
-////    var largP
-////    var altP
-//}
-
 struct Scene3: View {
+    @State private var showingSheet = false
     @State var cont = 0
     var relaxingPolaroid = Poladoid(polaroid: Image("RelaxingPolaroid"),
                                     tapes: Image("relaxmyTape"))
@@ -56,7 +53,6 @@ struct Scene3: View {
                 self.location = value.location
             }
             .onEnded { value in
-                print("LOCATIONaaa \(value.location)")
                 if(isNearTo(self.location, goal: .init(x: 120, y: -117))) {
                     self.location = .init(x: 120, y: -117)
                     cont += 1
@@ -71,7 +67,6 @@ struct Scene3: View {
     var simpleDragB: some Gesture {
         DragGesture()
             .onChanged { value in
-                print("LOCATIONaaa \(value.location)")
                 self.locationB = value.location
             }
             .onEnded { value in
@@ -86,7 +81,6 @@ struct Scene3: View {
     var simpleDragC: some Gesture {
         DragGesture()
             .onChanged { value in
-                print("LOCATIONaaa \(value.location)")
                 self.locationC = value.location
             }
             .onEnded { value in
@@ -105,7 +99,6 @@ struct Scene3: View {
     var simpleDragD: some Gesture {
         DragGesture()
             .onChanged { value in
-                print("LOCATIONaaa \(value.location)")
                 self.locationD = value.location
             }
             .onEnded { value in
@@ -120,7 +113,6 @@ struct Scene3: View {
     var simpleDragE: some Gesture {
         DragGesture()
             .onChanged { value in
-                print("LOCATION \(value.location)")
                 self.locationE = value.location
             }
             .onEnded { value in
@@ -194,7 +186,7 @@ struct Scene3: View {
             }.background(Image("backScene3"))
                 .navigationBarHidden(true)
             
-            if cont == 3 {
+            if cont > 2 {
                 VStack {
                     Spacer()
                     HStack {
@@ -203,6 +195,25 @@ struct Scene3: View {
                             Image("arrow2")
                         })
                     }
+                }
+            } else {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            showingSheet.toggle()
+                        } label: {
+                            Image(systemName: "book.fill")
+                                .font(.largeTitle)
+                                .padding()
+                        }
+                        .sheet(isPresented: $showingSheet) {
+                            SheetView(text: """
+                            Mudar texto
+                            """)
+                        }
+                    }
+                    Spacer()
                 }
             }
         }

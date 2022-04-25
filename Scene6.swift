@@ -16,6 +16,74 @@ struct Scene6: View {
     @State private var positionD: CGPoint = CGPoint(x: 115, y: 400)
     @State private var positionE: CGPoint = CGPoint(x: 100, y: 515)
     
+    @State private var isDragging = false
+    @State private var showingSheet = false
+    
+    var body: some View {
+        ZStack {
+            VStack{
+                Spacer()
+                HStack{
+                    Spacer()
+                    Image("flowerTape")
+                        .position(positionB)
+                        .gesture(dragB)
+                    Image("borbTape")
+                        .position(positionC)
+                        .gesture(dragC)
+                }
+                HStack{
+                    Image("pinkTape")
+                        .position(positionD)
+                        .gesture(dragD)
+                    Image("textTape")
+                        .position(position)
+                        .gesture(drag)
+                    Image("paperTape")
+                        .zIndex(-1)
+                        .position(positionE)
+                        .gesture(dragE)
+                }.zIndex(-1)
+                    .padding(.bottom, 10)
+            }
+            if cont > 3 {
+                VStack{
+                    Spacer()
+                    Text("Wow, it's amazing!")
+                        .fontWeight(.medium)
+                        .font(.largeTitle)
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: Scene7(), label:{
+                            Image("arrow4").padding()
+                        })
+                    }
+                }
+            } else {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            showingSheet.toggle()
+                        } label: {
+                            Image(systemName: "book.fill")
+                                .font(.largeTitle)
+                                .padding()
+                        }
+                        .sheet(isPresented: $showingSheet) {
+                            SheetView(text: """
+                            Mudar texto
+                            """)
+                        }
+                    }
+                    Spacer()
+                }
+            }
+        }.navigationBarHidden(true)
+            .background(Image("collageArea"))
+        
+    }
+    
     func isNearTo(_ position: CGPoint, goal: CGPoint) -> Bool {
         return position.distance(to: goal) < 350
     }
@@ -81,7 +149,7 @@ struct Scene6: View {
             .onChanged { value in
                 print(value.location)
                 self.positionE = value.location
-
+                
             }
             .onEnded { value in
                 if (isNearTo(self.positionE, goal: .init(x: -180, y: 0))) {
@@ -89,52 +157,5 @@ struct Scene6: View {
                     cont += 1
                 }
             }
-    }
-    
-    @State private var isDragging = false
-    var body: some View {
-        ZStack {
-            VStack{
-                Spacer()
-                HStack{
-                    Spacer()
-                    Image("flowerTape")
-                        .position(positionB)
-                        .gesture(dragB)
-                    Image("borbTape")
-                        .position(positionC)
-                        .gesture(dragC)
-                }
-                HStack{
-                    Image("pinkTape")
-                        .position(positionD)
-                        .gesture(dragD)
-                    Image("textTape")
-                        .position(position)
-                        .gesture(drag)
-                    Image("paperTape")
-                        .zIndex(-1)
-                        .position(positionE)
-                        .gesture(dragE)
-                }.zIndex(-1)
-                    .padding(.bottom, 10)
-            }
-            if cont > 3 {
-                VStack{
-                    Spacer()
-                    Text("Wow, it's amazing!")
-                        .fontWeight(.medium)
-                        .font(.largeTitle)
-                    HStack {
-                        Spacer()
-                        NavigationLink(destination: Scene7(), label:{
-                            Image("arrow4").padding()
-                        })
-                    }
-                }
-            }
-        }.navigationBarHidden(true)
-            .background(Image("collageArea"))
-        
     }
 }

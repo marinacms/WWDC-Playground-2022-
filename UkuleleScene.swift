@@ -11,9 +11,8 @@ import UIKit
 
 var ukuleleSong: AVAudioPlayer!
 struct UkuleleScene: View {
-    let cfURL = Bundle.main.url(forResource: "Poppins-Regular", withExtension: "ttf")! as CFURL
-    
     @ObservedObject var soundManager = SoundManager()
+    @State private var showingSheet = false
     
     var body: some View {
         ZStack {
@@ -38,6 +37,24 @@ struct UkuleleScene: View {
                         .padding(.top, 128)
                     Spacer()
                 }
+            }
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        showingSheet.toggle()
+                    } label: {
+                        Image(systemName: "book.fill")
+                            .font(.largeTitle)
+                            .padding()
+                    }
+                    .sheet(isPresented: $showingSheet) {
+                        SheetView(text: """
+                        Mudar texto
+                        """)
+                    }
+                }
+                Spacer()
             }
                 
         }.navigationBarHidden(true)

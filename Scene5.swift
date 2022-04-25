@@ -15,6 +15,10 @@ struct Scene5: View {
         ZStack {
             Gif("animationBeach")
             VStack {
+                Text("Listen to the sea and relax with Mari")
+                    .padding(.top, 225)
+                    .font(Font.largeTitle.weight(.black))
+                    .foregroundColor(.white)
                 Spacer()
                 HStack {
                     Spacer()

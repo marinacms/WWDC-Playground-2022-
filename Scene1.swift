@@ -62,7 +62,9 @@ struct Scene1: View {
                                     .padding()
                             }
                             .sheet(isPresented: $showingSheet) {
-                                SheetView()
+                                SheetView(text: """
+                                Mari is a dreamy girl and loves to use her creativity to revolutionize the world around her, her memory is her great ally. But she is going through difficult times, she has been working a lot, she feels tired and quite unmotivated.
+                                """)
                             }
                         }
                         Spacer()
@@ -91,7 +93,7 @@ struct Scene1: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            NavigationLink(destination: Scene2(), label:{
+                            NavigationLink(destination: Scene3(), label:{
                                 Image("arrow1")
                             })
                         }
@@ -104,18 +106,4 @@ struct Scene1: View {
 }
 
 
-struct SheetView: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        Text("""
-               Mari is a dreamy girl and loves to use her creativity to revolutionize the world around her, her memory is her great ally. But she is going through difficult times, she has been working a lot, she feels tired and quite unmotivated.
-               """)
-        .onTapGesture(perform: {
-            dismiss()
-        })
-        .font(.title)
-        .padding()
-    }
-    
-}
+
